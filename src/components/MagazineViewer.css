@@ -1,0 +1,102 @@
+/* ============================================================
+   MAGAZINE VIEWER — Stage 1
+   ============================================================ */
+
+.magazine-viewer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    background-color: #1a1a1a;
+    padding: 16px 16px 0 16px;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+    overflow: hidden;
+}
+
+/* ── viewport ─────────────────────────────────────────────── */
+.magazine-viewport {
+    width: 100%;
+    flex: 1;                /* takes all remaining height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;       /* prevent page-flip overflow spill */
+    min-height: 0;          /* critical for flex children to shrink */
+}
+
+/* ── flipbook container ───────────────────────────────────── */
+/*
+   page-flip writes absolute-positioned canvases INSIDE this div.
+   It MUST have a definite width & height when PageFlip() runs.
+   We use aspect-ratio + max-height so it fills the viewport
+   proportionally on all screen sizes.
+*/
+.flipbook-container {
+    /* Two-page spread: width = 2 × page width, height = page height */
+    /* Natural ratio for spread: (2×1241) / 1754 ≈ 1.416 wide */
+    width: 100%;
+    height: 100%;
+    max-width: 1600px;
+    position: relative;     /* page-flip needs a positioned ancestor */
+    background: #f5f5f0;
+    box-shadow:
+        0 4px 6px rgba(0, 0, 0, 0.3),
+        0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.magazine-page {
+    background-color: white;
+    overflow: hidden;
+}
+
+.page-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* ensures zero stretching and maximum sharpness */
+    display: block;
+    background-color: white;
+}
+
+/* ── controls bar ─────────────────────────────────────────── */
+.magazine-controls {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 12px 24px;
+    color: #e0e0e0;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.control-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #e0e0e0;
+    padding: 8px 18px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+.control-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.5);
+    color: #fff;
+}
+
+.control-btn:focus-visible {
+    outline: 2px solid #4a9eff;
+    outline-offset: 2px;
+}
+
+.page-indicator {
+    min-width: 120px;
+    text-align: center;
+    letter-spacing: 0.5px;
+}
