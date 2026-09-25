@@ -1,4 +1,5 @@
-import React, { useRef, useEffect, useState, useLayoutEffect, useCallback } from 'react';
+import React, { useRef, useState, useLayoutEffect, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import { PageFlip } from 'page-flip';
 import './MagazineViewer.css';
 
@@ -116,6 +117,9 @@ export default function MagazineViewer({ magazine }) {
             </div>
 
             <div className="magazine-controls">
+                <Link to="/" className="control-btn" aria-label="Back to Home" style={{ marginRight: 'auto' }}>
+                    Home
+                </Link>
                 <button onClick={handlePrev} className="control-btn" aria-label="Previous page">
                     ← Previous
                 </button>
