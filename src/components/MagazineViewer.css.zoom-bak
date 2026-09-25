@@ -7,8 +7,7 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    height: 100vh; /* Fallback */
-    height: 100dvh;
+    height: 100vh;
     background-color: #1a1a1a;
     box-sizing: border-box;
     font-family: 'Inter', sans-serif;
@@ -56,19 +55,35 @@
     overflow: hidden;
     min-height: 0;
     padding: 16px;
-    touch-action: none;
-    user-select: none;
-    -webkit-user-select: none;
 }
 
-/* The container allows StPageFlip to determine the best fit dynamically */
+/* ── flipbook container ───────────────────────────────────── */
 .flipbook-container {
     position: relative;
     background: transparent;
-    width: 100%;
-    height: 100%;
     /* Apply drop shadow to the actual page boundaries */
     filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.4));
+}
+
+/* Portrait mode (mobile) - single page view */
+@media (max-width: 599px) {
+    .flipbook-container {
+        width: 100%;
+        height: 100%;
+        max-width: 100%;
+    }
+}
+
+/* Landscape mode (desktop) - two page spread */
+@media (min-width: 600px) {
+    .flipbook-container {
+        /* Force container to tightly wrap the exact 2-page aspect ratio */
+        height: 100%;
+        width: auto;
+        max-width: 2482px;
+        max-height: 1754px;
+        aspect-ratio: 2482 / 1754;
+    }
 }
 
 .magazine-page {
@@ -82,7 +97,6 @@
     object-fit: contain;
     display: block;
     background-color: white;
-    -webkit-user-drag: none;
 }
 
 /* ── controls bar ─────────────────────────────────────────── */
@@ -90,7 +104,6 @@
     flex-shrink: 0;
     width: 100%;
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     gap: 20px;
@@ -98,12 +111,6 @@
     background-color: rgba(26, 26, 26, 0.95);
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     color: #e0e0e0;
-}
-
-.control-group {
-    display: flex;
-    align-items: center;
-    gap: 12px;
 }
 
 .control-btn {
@@ -121,7 +128,6 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    touch-action: manipulation;
 }
 
 .control-btn:hover:not(:disabled) {
@@ -143,19 +149,6 @@
 .btn-exit {
     background: transparent;
     border-color: rgba(255, 255, 255, 0.3);
-}
-
-.zoom-btn {
-    padding: 8px 12px;
-    font-size: 14px;
-}
-
-.zoom-level {
-    font-size: 13px;
-    font-weight: 600;
-    min-width: 45px;
-    text-align: center;
-    display: inline-block;
 }
 
 /* ── Page Indicator & Input ──────────────────────────────── */
@@ -230,12 +223,6 @@
     .magazine-controls {
         padding: 12px 16px;
         gap: 12px;
-        flex-direction: column;
-    }
-
-    .control-group {
-        width: 100%;
-        justify-content: center;
     }
     
     .control-btn {
@@ -247,4 +234,3 @@
         width: 40px;
     }
 }
-

@@ -1,0 +1,229 @@
+import React, { useRef, useState, useLayoutEffect, useEffect, useCallback } from 'react';
+import { Link } from 'react-router-dom';
+import { PageFlip } from 'page-flip';
+import './MagazineViewer.css';
+
+// Real image dimensions: 1241 × 1754  (portrait, ratio ≈ 0.7079)
+const PAGE_W = 1241;
+const PAGE_H = 1754;
+const ASPECT = PAGE_H / PAGE_W; // ~1.413
+
+export default function MagazineViewer({ magazine }) {
+    const viewerRef     = useRef(null);
+    const containerRef  = useRef(null);
+    const flipBookRef   = useRef(null);
+    const isInitialized = useRef(false);
+    
+    const [currentPage, setCurrentPage] = useState(0);
+    const [totalPages,  setTotalPages]  = useState(magazine.totalPages);
+    const [inputPage, setInputPage] = useState(1);
+    const [isFullscreen, setIsFullscreen] = useState(false);
+
+    // Sync input with actual page
+    useEffect(() => {
+        setInputPage(currentPage + 1);
+    }, [currentPage]);
+
+    const initFlipBook = useCallback(() => {
+        const el = containerRef.current;
+        if (!el || isInitialized.current) return;
+
+        const containerW = el.offsetWidth;
+        const containerH = el.offsetHeight;
+
+        if (containerW === 0 || containerH === 0) return;
+
+        isInitialized.current = true;
+
+        el.innerHTML = magazine.pages.map((url, i) => `
+            <div class="magazine-page">
+                <img data-src="${url}" alt="Page ${i + 1}" class="page-image" />
+            </div>
+        `).join('');
+
+        const pageElements = el.querySelectorAll('.magazine-page');
+
+        const pfInstance = new PageFlip(el, {
+            width:            PAGE_W,
+            height:           PAGE_H,
+            size:             'stretch',
+            minWidth:         100,
+            maxWidth:         PAGE_W,
+            minHeight:        100,
+            maxHeight:        PAGE_H,
+            drawShadow:       true,
+            maxShadowOpacity: 0.4,
+            showCover:        true,
+            mobileScrollSupport: false,
+            usePortrait:      containerW < 600,
+        });
+
+        pfInstance.loadFromHTML(pageElements);
+
+        const loadNearbyPages = (pageIndex) => {
+            for (let i = Math.max(0, pageIndex - 2); i <= Math.min(magazine.pages.length - 1, pageIndex + 3); i++) {
+                const pageEl = pageElements[i];
+                if (pageEl) {
+                    const img = pageEl.querySelector('img');
+                    if (img && !img.src && img.dataset.src) {
+                        img.src = img.dataset.src;
+                    }
+                }
+            }
+        };
+
+        loadNearbyPages(0);
+
+        pfInstance.on('flip', (e) => {
+            setCurrentPage(e.data);
+            loadNearbyPages(e.data);
+        });
+
+        pfInstance.on('changeState', (e) => {
+            if (e.data === 'read') {
+                setTotalPages(pfInstance.getPageCount());
+            }
+        });
+
+        flipBookRef.current = pfInstance;
+        window.debugFlipBook = pfInstance;
+        window.debugContainer = containerRef.current;
+    }, [magazine]);
+
+    useLayoutEffect(() => {
+        const timer = setTimeout(initFlipBook, 50);
+        return () => {
+            clearTimeout(timer);
+            if (flipBookRef.current) {
+                try { flipBookRef.current.destroy(); } catch (_) {}
+                flipBookRef.current = null;
+            }
+            isInitialized.current = false;
+            if (containerRef.current) {
+                containerRef.current.innerHTML = '';
+            }
+        };
+    }, [initFlipBook]);
+
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.target.tagName.toLowerCase() === 'input') return;
+            if (e.key === 'ArrowLeft') {
+                if (flipBookRef.current) flipBookRef.current.flipPrev();
+            } else if (e.key === 'ArrowRight') {
+                if (flipBookRef.current) flipBookRef.current.flipNext();
+            } else if (e.key === 'Home') {
+                if (flipBookRef.current) flipBookRef.current.flip(0);
+            } else if (e.key === 'End') {
+                if (flipBookRef.current) flipBookRef.current.flip(totalPages - 1);
+            }
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [totalPages]);
+
+    useEffect(() => {
+        const onFullscreenChange = () => {
+            setIsFullscreen(!!document.fullscreenElement);
+        };
+        document.addEventListener('fullscreenchange', onFullscreenChange);
+        return () => document.removeEventListener('fullscreenchange', onFullscreenChange);
+    }, []);
+
+    const toggleFullscreen = () => {
+        if (!document.fullscreenElement) {
+            viewerRef.current?.requestFullscreen().catch(err => {
+                console.warn("Fullscreen API not supported", err);
+            });
+        } else {
+            document.exitFullscreen().catch(err => console.warn(err));
+        }
+    };
+
+    const handlePrev = () => {
+        if (flipBookRef.current) flipBookRef.current.flipPrev();
+    };
+
+    const handleNext = () => {
+        if (flipBookRef.current) flipBookRef.current.flipNext();
+    };
+
+    const handlePageSubmit = (e) => {
+        if (e.key === 'Enter') {
+            let p = parseInt(inputPage, 10);
+            if (!isNaN(p) && p >= 1 && p <= totalPages) {
+                if (flipBookRef.current) {
+                    flipBookRef.current.flip(p - 1);
+                }
+            } else {
+                setInputPage(currentPage + 1);
+            }
+        }
+    };
+
+    const isFirstPage = currentPage === 0;
+    const isLastPage = currentPage >= totalPages - (flipBookRef.current?.getOrientation() === 'portrait' ? 1 : 2);
+
+    return (
+        <div className="magazine-viewer" ref={viewerRef}>
+            <div className="viewer-top-bar">
+                <div className="viewer-identity">
+                    <h2>{magazine.title}</h2>
+                    <span className="viewer-subtitle">{magazine.subtitle}</span>
+                </div>
+                <div className="viewer-top-actions">
+                    <button onClick={toggleFullscreen} className="control-btn" aria-label="Toggle Fullscreen">
+                        {isFullscreen ? 'Exit Fullscreen' : 'Fullscreen'}
+                    </button>
+                    <Link to="/" className="control-btn btn-exit" aria-label="Return to Home">
+                        Exit to Home
+                    </Link>
+                </div>
+            </div>
+
+            <div className="magazine-viewport">
+                <div 
+                    className="flipbook-container" 
+                    ref={containerRef} 
+                />
+            </div>
+
+            <div className="magazine-controls">
+                <button 
+                    onClick={handlePrev} 
+                    className="control-btn" 
+                    aria-label="Previous page"
+                    disabled={isFirstPage}
+                >
+                    ← Previous
+                </button>
+                
+                <div className="page-indicator" aria-live="polite">
+                    <label htmlFor="page-input" className="sr-only">Go to page</label>
+                    <input 
+                        id="page-input"
+                        type="number" 
+                        value={inputPage} 
+                        onChange={(e) => setInputPage(e.target.value)}
+                        onKeyDown={handlePageSubmit}
+                        onBlur={() => setInputPage(currentPage + 1)}
+                        className="page-input"
+                        min={1}
+                        max={totalPages}
+                        aria-label="Current page number"
+                    />
+                    <span className="page-total"> / {totalPages}</span>
+                </div>
+
+                <button 
+                    onClick={handleNext} 
+                    className="control-btn" 
+                    aria-label="Next page"
+                    disabled={isLastPage}
+                >
+                    Next →
+                </button>
+            </div>
+        </div>
+    );
+}
