@@ -7,7 +7,18 @@ import './App.css';
 
 function MagazineWrapper() {
   const { id } = useParams();
-  const magazine = magazines.find(m => m.id === id) || magazines[0];
+  const magazine = magazines.find(m => m.id === id);
+  
+  if (!magazine) {
+    return (
+      <div className="not-found-container">
+        <h2>Magazine Not Found</h2>
+        <p>The publication you are looking for does not exist or has been removed.</p>
+        <a href="/" className="btn-primary">Return to Library</a>
+      </div>
+    );
+  }
+  
   return <MagazineViewer magazine={magazine} />;
 }
 

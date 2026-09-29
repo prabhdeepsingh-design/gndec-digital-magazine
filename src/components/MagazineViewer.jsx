@@ -247,9 +247,9 @@ export default function MagazineViewer({ magazine }) {
         const handleKeyDown = (e) => {
             if (e.target.tagName.toLowerCase() === 'input') return;
             if (e.key === 'ArrowLeft') {
-                handlePageChange(currentPage - 1 > 0 ? currentPage - 1 : 0);
+                if (flipBookRef.current) { resetZoom(); flipBookRef.current.flipPrev(); }
             } else if (e.key === 'ArrowRight') {
-                handlePageChange(currentPage + 1 < totalPages ? currentPage + 1 : totalPages - 1);
+                if (flipBookRef.current) { resetZoom(); flipBookRef.current.flipNext(); }
             } else if (e.key === 'Home') {
                 handlePageChange(0);
             } else if (e.key === 'End') {

@@ -74,6 +74,13 @@
 .magazine-page {
     background-color: white;
     overflow: hidden;
+    /* Fix for StPageFlip 1px spine gap during backward flip */
+    box-shadow: inset -1px 0 0 white, inset 1px 0 0 white;
+}
+
+/* Ensure the stf__item wrapper does not show a gap during hard flip */
+.stf__item {
+    backface-visibility: hidden;
 }
 
 .page-image {
