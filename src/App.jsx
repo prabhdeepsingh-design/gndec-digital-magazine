@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route, useParams } from 'react-router-dom';
 import MagazineViewer from './components/MagazineViewer';
 import Home from './components/Home';
+import DigitalTeam from './components/DigitalTeam';
 import { magazines } from './data/magazines';
 import './App.css';
 
@@ -28,6 +29,7 @@ function App() {
       <div className="App">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/digital-team" element={<DigitalTeam />} />
           <Route path="/magazine/:id" element={<MagazineWrapper />} />
         </Routes>
       </div>

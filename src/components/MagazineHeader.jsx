@@ -14,8 +14,9 @@ export default function MagazineHeader() {
         </Link>
         <nav className="header-nav">
           <Link to="/" className="nav-link">Home</Link>
-          <a href="#magazines" className="nav-link">Magazines</a>
-          <a href="#about" className="nav-link">About</a>
+          <a href="/#magazines" className="nav-link">Magazines</a>
+          <a href="/#about" className="nav-link">About</a>
+          <Link to="/digital-team" className="nav-link">Digital Team</Link>
         </nav>
       </div>
     </header>
