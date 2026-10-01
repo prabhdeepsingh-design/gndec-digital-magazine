@@ -33,9 +33,12 @@ export default function DigitalTeam() {
               <div className="team-card">
                 <div className="team-image-wrapper">
                   <img 
-                    src="/images/ishmeet%20singh.jpeg" 
+                    src="/images/ishmeet%20singh.webp" 
                     alt="Ishmeet Singh — Digital Team" 
                     className="team-image"
+                    width="800"
+                    height="1000"
+                    loading="lazy"
                   />
                 </div>
                 <h3 className="team-name">Ishmeet Singh</h3>
@@ -44,9 +47,12 @@ export default function DigitalTeam() {
               <div className="team-card">
                 <div className="team-image-wrapper">
                   <img 
-                    src="/images/Prabhdeepsingh.png" 
+                    src="/images/Prabhdeepsingh.webp" 
                     alt="Prabhdeep Singh — Digital Team" 
                     className="team-image"
+                    width="800"
+                    height="1000"
+                    loading="lazy"
                   />
                 </div>
                 <h3 className="team-name">Prabhdeep Singh</h3>
@@ -55,9 +61,12 @@ export default function DigitalTeam() {
               <div className="team-card">
                 <div className="team-image-wrapper">
                   <img 
-                    src="/images/armaanjot.png" 
+                    src="/images/armaanjot.webp" 
                     alt="Armaanjot Singh — Digital Team" 
                     className="team-image"
+                    width="800"
+                    height="1000"
+                    loading="lazy"
                   />
                 </div>
                 <h3 className="team-name">Armaanjot Singh</h3>

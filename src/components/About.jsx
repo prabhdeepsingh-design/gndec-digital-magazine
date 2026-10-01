@@ -40,9 +40,12 @@ export default function About() {
             <div className="editorial-profile">
               <div className="profile-image-wrapper">
                 <img
-                  src="/images/chief-editor.png"
+                  src="/images/chief-editor.webp"
                   alt="Dr. Harpreet Kaur Grewal, President of the College Magazine"
                   className="profile-image"
+                  width="800"
+                  height="608"
+                  loading="lazy"
                 />
               </div>
               <div className="profile-details">
