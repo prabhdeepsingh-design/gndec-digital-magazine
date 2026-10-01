@@ -63,10 +63,27 @@
   color: #4b5563;
   font-weight: 500;
   transition: color 0.2s;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.nav-link:hover {
+.nav-link.active {
   color: #2563eb;
+  font-weight: 700;
+  border-bottom: 2px solid #2563eb;
+  padding-bottom: 4px;
+}
+
+@media (hover: hover) {
+  .nav-link:hover {
+    color: #2563eb;
+  }
+}
+
+.nav-link:focus-visible {
+  color: #2563eb;
+  outline: 2px solid #2563eb;
+  outline-offset: 4px;
+  border-radius: 2px;
 }
 
 /* Hero Section - Editorial Typography */

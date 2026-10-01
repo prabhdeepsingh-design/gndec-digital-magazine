@@ -17,9 +17,9 @@ export default function MagazineFooter() {
             <h4 className="footer-heading">Explore</h4>
             <nav className="footer-links">
               <Link to="/" className="footer-link">Home</Link>
-              <a href="/#magazines" className="footer-link">Magazines</a>
-              <a href="/#about" className="footer-link">About</a>
-              <Link to="/digital-team" className="footer-link">Digital Team</Link>
+              <Link to="/about" className="footer-link">About</Link>
+              <Link to="/magazines" className="footer-link">Magazine</Link>
+              <Link to="/digital-team" className="footer-link">Team</Link>
             </nav>
           </div>
 

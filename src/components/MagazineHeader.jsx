@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import './Home.css';
 
 export default function MagazineHeader() {
@@ -8,15 +8,15 @@ export default function MagazineHeader() {
       <div className="header-container">
         <Link to="/" className="header-brand">
           <div className="brand-logo">
-            <span className="brand-title">Guru Nanak Dev Engineering College</span>
-            <span className="brand-subtitle">Digital Magazine</span>
+            <span className="brand-title" style={{ fontFamily: "serif, 'Times New Roman', Times", fontSize: '1.75rem', fontWeight: 800, letterSpacing: '0.1em', color: '#722F37' }}>HARMONY</span>
+            <span className="brand-subtitle">Annual College Magazine</span>
           </div>
         </Link>
         <nav className="header-nav">
-          <Link to="/" className="nav-link">Home</Link>
-          <a href="/#magazines" className="nav-link">Magazines</a>
-          <a href="/#about" className="nav-link">About</a>
-          <Link to="/digital-team" className="nav-link">Digital Team</Link>
+          <NavLink to="/" className={({isActive}) => isActive ? "nav-link active" : "nav-link"}>Home</NavLink>
+          <NavLink to="/about" className={({isActive}) => isActive ? "nav-link active" : "nav-link"}>About</NavLink>
+          <NavLink to="/magazines" className={({isActive}) => isActive ? "nav-link active" : "nav-link"}>Magazine</NavLink>
+          <NavLink to="/digital-team" className={({isActive}) => isActive ? "nav-link active" : "nav-link"}>Team</NavLink>
         </nav>
       </div>
     </header>

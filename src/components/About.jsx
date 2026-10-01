@@ -1,22 +1,14 @@
 import React from 'react';
 import MagazineHeader from './MagazineHeader';
-import HeroSection from './HeroSection';
-import FeaturedMagazine from './FeaturedMagazine';
-import MagazineGrid from './MagazineGrid';
 import MagazineFooter from './MagazineFooter';
-import { magazines } from '../data/magazines';
-import './Home.css';
+import './Home.css'; // Reusing Home styles for sections
 
-export default function Home() {
-  const featured = magazines[0];
-
+export default function About() {
   return (
     <div className="home-page">
       <MagazineHeader />
       <main>
-        <HeroSection />
-        
-        <section className="about-section">
+        <section className="about-section" style={{ paddingTop: '100px' }}>
           <div className="container">
             <h2 className="section-title">ABOUT HARMONY</h2>
             <div className="about-content">
@@ -30,7 +22,16 @@ export default function Home() {
           </div>
         </section>
 
-        <FeaturedMagazine magazine={featured} />
+        <section className="about-section">
+          <div className="container">
+            <h2 className="section-title">ABOUT COLLEGE</h2>
+            <div className="about-content">
+              <p className="about-text">
+                Guru Nanak Dev Engineering College (GNDEC), Ludhiana, is one of the oldest and most premier engineering institutions of northern India. The college has been playing a pivotal role in shaping the careers of young engineers and technologists since its inception. It continues to be a center of excellence, fostering a spirit of innovation, research, and holistic development among its students.
+              </p>
+            </div>
+          </div>
+        </section>
 
         <section className="about-section">
           <div className="container">
@@ -53,8 +54,6 @@ export default function Home() {
             </div>
           </div>
         </section>
-
-        <MagazineGrid magazines={magazines} />
       </main>
       <MagazineFooter />
     </div>
