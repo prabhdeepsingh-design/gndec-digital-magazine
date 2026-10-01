@@ -110,14 +110,7 @@
   letter-spacing: 0.2em;
   color: #722F37; /* Deep burgundy accent */
   text-transform: uppercase;
-  margin-bottom: 20px;
-}
-
-.hero-divider {
-  width: 100%;
-  border: none;
-  border-top: 1px solid #e5e7eb;
-  margin: 0 0 24px 0;
+  margin-bottom: 24px;
 }
 
 .hero-main-title {
@@ -126,7 +119,7 @@
   font-family: serif, 'Times New Roman', Times;
   letter-spacing: 0.15em;
   color: #111827;
-  margin: 0 0 24px 0;
+  margin: 0 0 32px 0;
   line-height: 1;
 }
 
@@ -629,13 +622,13 @@
   .hero-main-title {
     font-size: clamp(2.5rem, 12vw, 3.5rem);
     letter-spacing: 0.1em;
-    margin-bottom: 16px;
+    margin-bottom: 24px;
   }
 
   .hero-top-label {
     font-size: 0.65rem;
     letter-spacing: 0.15em;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
   }
 
   .hero-keywords {
@@ -680,4 +673,52 @@
   .profile-college {
     font-size: 0.95rem;
   }
+}
+
+/* Coming Soon Magazine Card Styles */
+.card-image.blurred-cover {
+  filter: blur(5px);
+  transform: scale(1.06);
+}
+
+.magazine-card.coming-soon:hover .card-image.blurred-cover {
+  transform: scale(1.06);
+}
+
+.magazine-card.coming-soon .card-image-wrapper {
+  position: relative;
+}
+
+.coming-soon-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.coming-soon-badge {
+  background-color: #111827;
+  color: #ffffff;
+  padding: 8px 16px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  border-radius: 4px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+}
+
+.card-btn.coming-soon-btn {
+  opacity: 0.7;
+  cursor: default;
+}
+
+.card-btn.coming-soon-btn:hover {
+  background-color: #ffffff;
+  border-color: #d1d5db;
 }

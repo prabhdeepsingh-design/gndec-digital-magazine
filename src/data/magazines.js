@@ -8,6 +8,22 @@ const generatePages = (slug, count, padding = 4, filePrefix = null) => {
 
 export const magazines = [
     {
+        id: 'harmony-2026',
+        slug: 'harmony-2026',
+        title: 'Harmony 2026',
+        subtitle: 'Annual College Magazine',
+        year: 2026,
+        category: 'Annual Magazine',
+        publishedDate: '2026-01-01',
+        featured: false,
+        totalPages: 'TBD',
+        coverImage: '/magazines/harmony-2026/harmony-2026_page-0001.webp',
+        description: 'Explore Harmony 2026 — the annual college magazine of Guru Nanak Dev Engineering College, Ludhiana.',
+        path: '/magazine/harmony-2026',
+        pages: [],
+        comingSoon: true
+    },
+    {
         id: 'harmony-2025',
         slug: 'harmony-2025',
         title: 'Harmony 2025',

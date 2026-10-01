@@ -34,7 +34,7 @@ export default function MagazineFooter() {
         
         <div className="footer-bottom editorial-footer-bottom">
           <p>&copy; 2026 HARMONY — Guru Nanak Dev Engineering College, Ludhiana</p>
-          <p className="footer-bottom-credit">Designed & maintained by the HARMONY Digital Team</p>
+          <p className="footer-bottom-credit">Designed & maintained by <a href="https://manrashproductions.com" target="_blank" rel="noopener noreferrer">Manrash Productions</a></p>
         </div>
       </div>
     </footer>

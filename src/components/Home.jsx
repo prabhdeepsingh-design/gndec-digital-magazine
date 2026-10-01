@@ -8,7 +8,7 @@ import { magazines } from '../data/magazines';
 import './Home.css';
 
 export default function Home() {
-  const featured = magazines[0];
+  const featured = magazines.find(m => m.featured) || magazines[0];
 
   return (
     <div className="home-page">
