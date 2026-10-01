@@ -12,7 +12,7 @@ export default function Magazines() {
   return (
     <div className="home-page">
       <MagazineHeader />
-      <main style={{ paddingTop: '80px' }}>
+      <main>
         <FeaturedMagazine magazine={featured} />
         <MagazineGrid magazines={magazines} />
       </main>

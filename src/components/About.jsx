@@ -8,7 +8,7 @@ export default function About() {
     <div className="home-page">
       <MagazineHeader />
       <main>
-        <section className="about-section" style={{ paddingTop: '100px' }}>
+        <section className="about-section">
           <div className="container">
             <h2 className="section-title">ABOUT HARMONY</h2>
             <div className="about-content">
